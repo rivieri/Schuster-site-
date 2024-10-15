@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Schuster</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        #informacoes {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #informacoes span.presenca {
+            color: green;
+            font-weight: bold;
+        }
+
+        #informacoes span.falta {
+            color: red;
+            font-weight: bold;
+        }
+
+        #login {
+            padding: 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 5px;
+        }
+
+        #login form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #login label {
+            margin: 10px 0 5px;
+        }
+
+        #login input {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        h2 {
+            margin: 10px 0;
+        }
+
+        /* Estilos para o modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Estilos para a tabela de atividades */
+        #tabelaAtividades {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        #tabelaAtividades th, #tabelaAtividades td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /* Estilos para a tabela de notas */
+        #tabelaNotas {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        #tabelaNotas th, #tabelaNotas td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /* Estilo para a seção de termos de uso */
+        #termos {
+            padding: 20px;
+            margin: 20px;
+            background: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Colégio Estadual Marcos C. Schuster</h1>
+    </header>
+
+    <div id="informacoes" style="display: none;">
+        <h2>Olá estudante!</h2>
+        <p><strong>Presenças:</strong> <span id="presencas" class="presenca">10</span></p>
+        <p><strong>Faltas:</strong> <span id="faltasCount" class="falta">1</span></p>
+        <p><strong>Total de aulas:</strong> <span id="totalAulas">11</span></p>
+    </div>
+
+    <section id="login">
+        <h2>Login</h2>
+        <form onsubmit="return handleLogin(event)">
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" name="usuario" required>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="mensagem" style="color: red;"></p>
+    </section>
+
+    <section id="atividades" style="display: none;">
+        <h2>Atividades</h2>
+        <button onclick="showNotas()">Ver Notas</button>
+        <button onclick="showAtividades()">Ver Atividades</button>
+        
+        <h3>Lista de Atividades</h3>
+        <table id="tabelaAtividades">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Data de Entrega</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As atividades serão inseridas aqui dinamicamente -->
+            </tbody>
+        </table>
+        
+        <h4>Adicionar Nova Atividade</h4>
+        <form id="formAtividade" onsubmit="return adicionarAtividade(event)">
+            <label for="descricaoAtividade">Descrição:</label>
+            <input type="text" id="descricaoAtividade" name="descricaoAtividade" required>
+            
+            <label for="dataEntrega">Data de Entrega:</label>
+            <input type="date" id="dataEntrega" name="dataEntrega" required>
+            
+            <button type="submit">Adicionar Atividade</button>
+        </form>
+    </section>
+
+    <section id="faltas" style="display: none;">
+        <h2>Faltas</h2>
+        <p><strong>Última falta:</strong> <span id="ultimaFalta">15/10/2024</span></p>
+        <p><strong>Data de hoje:</strong> <span id="dataHoje"></span></p>
+        <p><strong>Aulas de hoje:</strong></p>
+        <ul id="aulasHoje">
+            <li>Matemática - 08:00</li>
+            <li>História - 09:30</li>
+            <li>Ciências - 11:00</li>
+        </ul>
+    </section>
+
+    <!-- Modal para Notas -->
+    <div id="modalNotas" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalNotas')">&times;</span>
+            <h2>Notas</h2>
+            <table id="tabelaNotas">
+                <thead>
+                    <tr>
+                        <th>Disciplina</th>
+                        <th>Nota</th>
+                        <th>Trimestre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Matemática</td>
+                        <td>9.5</td>
+                        <td>1º Trimestre</td>
+                    </tr>
+                    <tr>
+                        <td>História</td>
+                        <td>8.0</td>
+                        <td>1º Trimestre</td>
+                    </tr>
+                    <tr>
+                        <td>Ciências</td>
+                        <td>9.0</td>
+                        <td>1º Trimestre</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal para Atividades -->
+    <div id="modalAtividades" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalAtividades')">&times;</span>
+            <h2>Atividades</h2>
+            <p>Aqui estão suas atividades...</p>
+        </div>
+    </div>
+
+    <section id="termos">
+        <h2>Termos de Uso</h2>
+        <p>Bem-vindo ao site do Colégio Estadual Marcos C. Schuster. Ao utilizar este site, você concorda com os seguintes termos:</p>
+        <ul>
+            <li>Este site é destinado exclusivamente para uso educacional e atividades relacionadas à escola.</li>
+            <li>O acesso a informações pessoais é restrito a usuários autorizados.</li>
+            <li>O Colégio Estadual Marcos C. Schuster se reserva o direito de modificar os termos de uso a qualquer momento.</li>
+            <li>Os usuários são responsáveis por manter a confidencialidade de suas credenciais de login.</li>
+            <li>Qualquer uso inadequado do site pode resultar em restrições de acesso.</li>
+        </ul>
+        <p>Obrigado por utilizar o nosso site!</p>
+    </section>
+
+    <script>
+        let atividades = []; // Array para armazenar as atividades
+
+        function showNotas() {
+            document.getElementById('modalNotas').style.display = 'block';
+        }
+
+        function showAtividades() {
+            document.getElementById('modalAtividades').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function adicionarAtividade(event) {
+            event.preventDefault(); // Previne o envio do formulário
+            const descricao = document.getElementById('descricaoAtividade').value;
+            const dataEntrega = document.getElementById('dataEntrega').value;
+
+            // Adiciona a nova atividade à lista
+            atividades.push({ descricao, dataEntrega, status: 'Pendente' });
+            document.getElementById('formAtividade').reset(); // Limpa o formulário
+            document.getElementById('mensagem').textContent = 'Atividade adicionada com sucesso!'; // Mensagem de sucesso
+            
+            // Atualiza a tabela de atividades
+            atualizarTabelaAtividades();
+        }
+
+        function atualizarTabelaAtividades() {
+            const tbody = document.querySelector('#tabelaAtividades tbody');
+            tbody.innerHTML = ''; // Limpa a tabela
+
+            atividades.forEach((atividade, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${atividade.descricao}</td>
+                    <td>${atividade.dataEntrega}</td>
+                    <td>${atividade.status}</td>
+                    <td><button onclick="marcarComoConcluida(${index})">Marcar como concluída</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function marcarComoConcluida(index) {
+            atividades[index].status = 'Concluída'; // Atualiza o status da atividade
+            document.getElementById('mensagem').textContent = 'Atividade marcada como concluída!'; // Mensagem de sucesso
+            
+            // Atualiza a tabela de atividades
+            atualizarTabelaAtividades();
+        }
+
+        function handleLogin(event) {
+            event.preventDefault(); // Previne o envio do formulário
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+
+            // Lógica simples de verificação
+            if (usuario === "admin" && senha === "1234") {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('atividades').style.display = 'block';
+                document.getElementById('faltas').style.display = 'block'; // Exibe a seção de faltas
+                document.getElementById('informacoes').style.display = 'block'; // Exibe informações
+                document.getElementById('mensagem').textContent = ''; // Limpa a mensagem
+
+                // Atualiza a data de hoje
+                const hoje = new Date();
+                const dataHoje = hoje.toLocaleDateString('pt-BR');
+                document.getElementById('dataHoje').textContent = dataHoje;
+            } else {
+                document.getElementById('mensagem').textContent = 'Usuário ou senha incorretos!';
+            }
+        }
+    </script>
+</body>
+</html>
