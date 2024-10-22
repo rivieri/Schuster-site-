@@ -4,161 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site Schuster</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background: #007bff;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        #informacoes {
-            background-color: #e9ecef;
-            border-radius: 5px;
-            padding: 15px;
-            text-align: center;
-            margin: 20px;
-        }
-
-        #informacoes span.presenca {
-            color: green;
-            font-weight: bold;
-        }
-
-        #informacoes span.falta {
-            color: red;
-            font-weight: bold;
-        }
-
-        #login {
-            padding: 20px;
-            background: white;
-            margin: 20px;
-            border-radius: 5px;
-        }
-
-        #login form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #login label {
-            margin: 10px 0 5px;
-        }
-
-        #login input {
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-
-        section {
-            padding: 20px;
-            margin: 20px;
-            background: white;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            margin: 5px 0;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        h2 {
-            margin: 10px 0;
-        }
-
-        /* Estilos para o modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Estilos para a tabela de atividades */
-        #tabelaAtividades {
-            width: 100%;
-            text-align: center;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        #tabelaAtividades th, #tabelaAtividades td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        /* Estilos para a tabela de notas */
-        #tabelaNotas {
-            width: 100%;
-            text-align: center;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        #tabelaNotas th, #tabelaNotas td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        /* Estilo para a seção de termos de uso */
-        #termos {
-            padding: 20px;
-            margin: 20px;
-            background: white;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
+        <nav>
+            <ul>
+                <img src="logo.png" alt="logo escola">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="contato">Contato</a></li>
+            </ul>
+        </nav>
         <h1>Colégio Estadual Marcos C. Schuster</h1>
     </header>
 
     <div id="informacoes" style="display: none;">
-        <h2>Olá estudante!</h2>
+        <h2>Olá Admin!</h2>
         <p><strong>Presenças:</strong> <span id="presencas" class="presenca">10</span></p>
         <p><strong>Faltas:</strong> <span id="faltasCount" class="falta">1</span></p>
         <p><strong>Total de aulas:</strong> <span id="totalAulas">11</span></p>
