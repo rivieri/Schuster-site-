@@ -8,7 +8,9 @@ body {
 header {
     background: #007bff;
     color: white;
-    padding: 10px 0;
+    padding: 20px 20px;
+    display: flex;
+    justify-content: center;
     text-align: center;
 }
 #informacoes {
@@ -141,4 +143,14 @@ h2 {
     margin: 20px;
     background: white;
     border-radius: 5px;
+}
+ 
+.logo-escola {
+    /* POSIÇÃO */
+  position: relative; /* define a posição como relativa para poder movê-la */
+  left: 30px; /* move a imagem 50 pixels para a direita */
+  top: 20px; /* move a imagem 20 pixels para baixo */
+    /* TAMANHO */
+  width: 100px; /* define a largura da imagem como 200 pixels */
+  height: 99px; /* define a altura da imagem como 150 pixels */
 }
