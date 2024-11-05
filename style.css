@@ -148,9 +148,8 @@ h2 {
 .logo-escola {
     /* POSIÇÃO */
   position: relative; /* define a posição como relativa para poder movê-la */
-  left: 30px; /* move a imagem 50 pixels para a direita */
-  top: 20px; /* move a imagem 20 pixels para baixo */
-    /* TAMANHO */
+  right: 500px; /* move a imagem 50 pixels para a esquerda */
+  margin-top: -5px; /* mova a imagem 50 pixels para cima */
   width: 100px; /* define a largura da imagem como 200 pixels */
   height: 99px; /* define a altura da imagem como 150 pixels */
 }
